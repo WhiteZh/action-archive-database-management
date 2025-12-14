@@ -83,8 +83,8 @@ onMounted(async () => {
       </div>
     </div>
   </div>
-  <div v-else class="flex items-center justify-center">
-    <h1 class="text-2xl text-center text-red-900">
+  <div v-else class="flex flex-col items-center justify-center">
+    <h1 class="text-2xl text-center text-red-900 m-2">
       {{
         (() => {
           switch (submitsFetchingStatus) {
@@ -98,6 +98,12 @@ onMounted(async () => {
         })()
       }}
     </h1>
+    <button class="text-red-900 cursor-pointer hover:text-red-950 rounded-full p-0.5"
+            @click="doRefresh"
+            v-if="submitsFetchingStatus === 'failed'"
+    >
+      <ArrowPathIcon class="size-6" @click="doRefresh"/>
+    </button>
   </div>
 </template>
 
