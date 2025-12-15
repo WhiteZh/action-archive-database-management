@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
+import {message as dialogMessage} from "@tauri-apps/plugin-dialog";
 import {states} from "../global.ts";
 import RoundInput from "../components/shared/RoundInput.vue";
 import GlobeAlt from "../components/icons/GlobeAlt.vue";
@@ -85,24 +86,24 @@ const connectToDatabase = async () => {
       try {
         states.dbConnection.value = await Database.establishConnection({host, user, password, database});
 
-        window.alert("New database connection established");
+        await dialogMessage("New database connection established", {kind: 'info'});
 
         states.cache.dashboard.submits.value = null;
         states.cache.dashboard.submitsFetchingStatus.value = null;
       } catch (e) {
         const message = e instanceof Error ? e.message : String(e);
 
-        window.alert(`Failed to establish connection to the database: ${message}`)
+        await dialogMessage(`Failed to establish connection to the database: ${message}`, {kind: 'error'})
       }
 
       if (submitButton.value !== undefined) {
         submitButton.value.disabled = submitButtonDisabledOriginalStatus;
       }
     } else {
-      window.alert("Please fill out all the required information");
+      await dialogMessage("Please fill out all the required information", {kind: 'warning'});
     }
   } else if (dbMagicWordInput.value !== undefined && dbMagicWordInput.value.input.value.length > 0) {  // I know there's better ways but I'm tired
-    window.alert("Provide magic word is in invalid format");
+    await dialogMessage("Provide magic word is in invalid format", {kind: 'warning'});
   }
 };
 </script>

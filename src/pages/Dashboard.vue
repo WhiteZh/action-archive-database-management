@@ -3,6 +3,7 @@ import {onMounted, ref} from "vue";
 import {states} from "../global.ts";
 import {fetchAllSubmits} from "../lib/tauri.ts";
 import ArrowPathIcon from "../components/icons/ArrowPathIcon.vue";
+import {message as dialogMessage} from "@tauri-apps/plugin-dialog";
 
 const submits = states.cache.dashboard.submits;
 const submitsFetchingStatus = states.cache.dashboard.submitsFetchingStatus;
@@ -23,7 +24,7 @@ const doRefresh = async () => {
       submitsFetchingStatus.value = 'failed';
 
       const message = e instanceof Error ? e.message : String(e);
-      window.alert(`Failed to fetch from database: ${message}`);
+      await dialogMessage(`Failed to fetch from database: ${message}`, {kind: "info"});
     }
   }
 }
