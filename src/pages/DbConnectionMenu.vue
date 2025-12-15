@@ -143,7 +143,7 @@ const connectToDatabase = async () => {
                   class="db-input"
                   placeholder="Database"/>
     </div>
-    <div>- or -</div>
+    <div class="text-red-900">- or -</div>
     <div class="relative text-neutral-700 focus-within:text-red-900 max-w-full shrink">
       <div class="absolute h-full aspect-square flex items-center justify-center">
         <BeakerIcon class="size-5"/>
