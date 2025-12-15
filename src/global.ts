@@ -8,6 +8,9 @@ export const pages = {
     "db-connection-menu": DbConnectionMenu,
 } as const;
 
+export const storeLocation = "store.json";
+export const dbConnectionStoreKey = "dbConnection";
+
 export const states: {
     currentPage: Ref<keyof typeof pages>,
     dbConnection: Ref<Database | null>,

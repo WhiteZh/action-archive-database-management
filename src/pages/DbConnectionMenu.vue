@@ -9,6 +9,7 @@ import LockClosedIcon from "../components/icons/LockClosedIcon.vue";
 import TableCellsIcon from "../components/icons/TableCellsIcon.vue";
 import {Database, decodeMagicWord, defaultDatabase, defaultDbUser} from "../lib/db.ts";
 import BeakerIcon from "../components/icons/BeakerIcon.vue";
+import {loadStoredDbConnection, writeStoredDbConnection} from "../lib/util.ts";
 
 const dbHostInput = ref<{ input: HTMLInputElement }>();
 const dbUserInput = ref<{ input: HTMLInputElement }>();
@@ -18,13 +19,30 @@ const dbMagicWordInput = ref<{ input: HTMLInputElement }>();
 
 const submitButton = ref<HTMLButtonElement>();
 
-onMounted(() => {
+onMounted(async () => {
   if (states.dbConnection.value === null) {
-    if (dbUserInput.value !== undefined) {
-      dbUserInput.value.input.value = defaultDbUser;
-    }
-    if (dbDatabaseInput.value !== undefined) {
-      dbDatabaseInput.value.input.value = defaultDatabase;
+    const storedDb = await loadStoredDbConnection();
+
+    if (storedDb === null) {
+      if (dbUserInput.value !== undefined) {
+        dbUserInput.value.input.value = defaultDbUser;
+      }
+      if (dbDatabaseInput.value !== undefined) {
+        dbDatabaseInput.value.input.value = defaultDatabase;
+      }
+    } else {
+      if (dbHostInput.value !== undefined) {
+        dbHostInput.value.input.value = storedDb.host;
+      }
+      if (dbUserInput.value !== undefined) {
+        dbUserInput.value.input.value = storedDb.user;
+      }
+      if (dbPasswordInput.value !== undefined) {
+        dbPasswordInput.value.input.value = storedDb.password;
+      }
+      if (dbDatabaseInput.value !== undefined) {
+        dbDatabaseInput.value.input.value = storedDb.database;
+      }
     }
   } else {
     const db = states.dbConnection.value;
@@ -84,9 +102,13 @@ const connectToDatabase = async () => {
       }
 
       try {
-        states.dbConnection.value = await Database.establishConnection({host, user, password, database});
+        const newDbConnection = await Database.establishConnection({host, user, password, database});
 
+        states.dbConnection.value = newDbConnection;
         await dialogMessage("New database connection established", {kind: 'info'});
+
+        // write to local app data
+        await writeStoredDbConnection(newDbConnection);
 
         // invalidate cache
         states.cache.dashboard.submits.value = null;
