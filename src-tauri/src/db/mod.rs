@@ -1,15 +1,19 @@
 mod tables;
 
+use crate::db::tables::Submit;
+use crate::AppState;
 use sqlx::postgres::PgPoolOptions;
 use tauri::State;
-use crate::AppState;
-use crate::db::tables::Submit;
 
 #[tauri::command]
-pub async fn establish_connection(connection_string: String, state: State<'_, AppState>) -> Result<(), String> {
+pub async fn establish_connection(
+    connection_string: String,
+    state: State<'_, AppState>,
+) -> Result<(), String> {
     let new_db_conn_res = PgPoolOptions::new()
         .max_connections(1)
-        .connect(&connection_string).await;
+        .connect(&connection_string)
+        .await;
 
     match new_db_conn_res {
         Ok(new_db) => {
@@ -17,7 +21,7 @@ pub async fn establish_connection(connection_string: String, state: State<'_, Ap
 
             Ok(())
         }
-        Err(e) => Err(e.to_string())
+        Err(e) => Err(e.to_string()),
     }
 }
 
@@ -39,7 +43,7 @@ pub async fn fetch_all_submits(state: State<'_, AppState>) -> Result<Vec<Submit>
         None => Err(String::from("no database connection")),
         Some(db) => match Submit::select_all(db).await {
             Ok(res) => Ok(res),
-            Err(e) => Err(e.to_string())
-        }
+            Err(e) => Err(e.to_string()),
+        },
     }
 }

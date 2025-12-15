@@ -14,6 +14,8 @@ pub struct Submit {
 
 impl Submit {
     pub async fn select_all(pg_pool: &PgPool) -> Result<Vec<Submit>, Error> {
-        sqlx::query_as::<_, Submit>("SELECT * FROM submits").fetch_all(pg_pool).await
+        sqlx::query_as::<_, Submit>("SELECT * FROM submits")
+            .fetch_all(pg_pool)
+            .await
     }
 }
