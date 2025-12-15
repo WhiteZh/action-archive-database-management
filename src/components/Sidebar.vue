@@ -29,7 +29,7 @@ const onDbConnectionClick = () => {
 <template>
   <div class="min-w-xs max-w-xs w-xs bg-red-900 p-3 flex flex-col text-neutral-200 gap-1">
     <div class="text-left px-3 py-2">
-      <h1 class="text-xl">Action Archive D.B.M.S</h1>
+      <h1 class="text-xl text-neutral-100">Action Archive D.B.M.S</h1>
       <h2 class="text-sm text-neutral-300 tracking-wider -mt-1 text-right">Database Management System</h2>
     </div>
     <button
