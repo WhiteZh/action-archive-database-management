@@ -1,5 +1,24 @@
 import {dbIsHealthy, establishConnection} from "./tauri.ts";
 
+export const decodeMagicWord = (magicWord: string): DatabaseConstructorArgs | null => {
+    const words = magicWord.split('.');
+
+    if (words !== undefined && words.length === 4) {
+        const decodedWords = words.map(it => atob(it));
+
+        const [host, user, password, database] = decodedWords;
+
+        return {
+            host,
+            user,
+            password,
+            database
+        };
+    } else {
+        return null;
+    }
+};
+
 export const defaultDbUser = "neondb_owner";
 export const defaultDatabase = "neondb";
 

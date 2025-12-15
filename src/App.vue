@@ -14,9 +14,9 @@ async function greet() {
 </script>
 
 <template>
-  <div class="max-w-full min-h-screen max-h-screen flex flex-row min-w-3xl">
+  <div class="max-w-full min-h-screen max-h-screen flex flex-row min-w-3xl overflow-clip">
     <Sidebar/>
-    <Page class="grow overflow-hidden"/>
+    <Page class="grow shrink min-w-0"/>
   </div>
 </template>
 
