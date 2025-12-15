@@ -44,7 +44,7 @@ onMounted(async () => {
 <template>
   <div v-if="submitsFetchingStatus === 'success'">
     <div class="overflow-auto max-h-full">
-      <div class="w-full sticky top-0 z-20 bg-white h-6 pt-1 flex flex-row items-center px-2 text-red-800 gap-2">
+      <div class="w-full sticky top-0 left-0 z-20 bg-white h-6 pt-1 flex flex-row items-center px-2 text-red-800 gap-2">
         <div class="grow"></div>
         <button class="header-button pt-0.5">
           <ArrowPathIcon class="size-4" @click="doRefresh"/>
