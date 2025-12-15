@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tauri-app",
-  "version": "0.1.0",
-  "identifier": "dev.johnb.tauri-app",
+  "productName": "Action Archive Database Management System",
+  "version": "1.0.0",
+  "identifier": "dev.johnb.action-archive-database-management",
   "build": {
     "beforeDevCommand": "deno task dev",
     "devUrl": "http://localhost:1420",
@@ -12,9 +12,9 @@
   "app": {
     "windows": [
       {
-        "title": "tauri-app",
-        "width": 800,
-        "height": 600
+        "title": "Action Archive Database Management System",
+        "width": 1200,
+        "height": 900
       }
     ],
     "security": {
