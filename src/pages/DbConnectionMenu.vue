@@ -88,6 +88,7 @@ const connectToDatabase = async () => {
 
         await dialogMessage("New database connection established", {kind: 'info'});
 
+        // invalidate cache
         states.cache.dashboard.submits.value = null;
         states.cache.dashboard.submitsFetchingStatus.value = null;
       } catch (e) {
