@@ -30,4 +30,6 @@ export async function writeStoredDbConnection(newDbConnection: {
     const store = await loadStore(storeLocation);
 
     await store.set(dbConnectionStoreKey, newDbConnection);
+
+    await store.save();
 }
