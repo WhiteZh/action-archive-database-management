@@ -1,6 +1,6 @@
 [package]
 name = "action-archive-database-management"
-version = "1.0.0"
+version = "1.0.1"
 description = "Database management tool for Action Archive"
 authors = ["johnb"]
 edition = "2021"
